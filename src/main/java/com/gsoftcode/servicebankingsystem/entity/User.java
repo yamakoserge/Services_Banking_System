@@ -1,10 +1,9 @@
-package entity;
+package com.gsoftcode.servicebankingsystem.entity;
 
 
+import com.gsoftcode.servicebankingsystem.dto.UserDto;
 import com.gsoftcode.servicebankingsystem.enums.UserRole;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -22,10 +21,23 @@ public class User {
     private String password;
 
     private String name;
-    
+
     private String lastname;
     
     private String phone;
 
     private UserRole role;
+
+    public UserDto getDto(){
+        UserDto userDto = new UserDto();
+
+        userDto.setId(id);
+        userDto.setName(name);
+        userDto.setEmail(email);
+        userDto.setRole(role);
+
+        return userDto;
+
+
+    }
 }
