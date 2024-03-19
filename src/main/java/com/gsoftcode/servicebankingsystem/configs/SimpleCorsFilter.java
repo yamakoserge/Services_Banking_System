@@ -1,9 +1,8 @@
-package com.gsoftcode.servicebankingsystem.config;
+package com.gsoftcode.servicebankingsystem.configs;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Value;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
