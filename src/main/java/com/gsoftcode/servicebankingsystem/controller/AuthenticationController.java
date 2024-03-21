@@ -60,10 +60,10 @@ public class AuthenticationController {
         if (authService.presentByEmail(signupRequestDTO.getEmail())){
             return  new ResponseEntity<>("Cette Company existe déjà!", HttpStatus.NOT_ACCEPTABLE);
         }
-        UserDto createUser= authService.signupCompany(signupRequestDTO);
-
+        UserDto createUser = authService.signupCompany(signupRequestDTO);
 
         return new ResponseEntity<>(createUser,HttpStatus.OK);
+
 
     }
 

@@ -7,6 +7,7 @@ import com.gsoftcode.servicebankingsystem.enums.UserRole;
 import com.gsoftcode.servicebankingsystem.repository.UserRepository;
 import com.gsoftcode.servicebankingsystem.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,7 +23,7 @@ public class AuthServiceImpl implements AuthService{
         user.setLastname(signupRequestDTO.getLastname());
         user.setEmail(signupRequestDTO.getEmail());
         user.setPhone(signupRequestDTO.getPhone());
-        user.setPassword(signupRequestDTO.getPassword());
+        user.setPassword(new BCryptPasswordEncoder().encode(signupRequestDTO.getPassword()));
 
         user.setRole(UserRole.CLIENT);
 
@@ -33,13 +34,15 @@ public class AuthServiceImpl implements AuthService{
         return userRepository.findFirstByEmail(email) != null;
     }
 
-    public UserDto company(SignupRequestDTO signupRequestDTO){
+
+
+    public UserDto signupCompany(SignupRequestDTO signupRequestDTO){
         User user = new User();
 
         user.setName(signupRequestDTO.getName());
         user.setEmail(signupRequestDTO.getEmail());
         user.setPhone(signupRequestDTO.getPhone());
-        user.setPassword(signupRequestDTO.getPassword());
+        user.setPassword(new BCryptPasswordEncoder().encode(signupRequestDTO.getPassword()));
 
         user.setRole(UserRole.COMPANY);
 
