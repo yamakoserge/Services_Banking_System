@@ -26,7 +26,7 @@ public class JwtUtil {
                 .setSubject(userName)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
-                .signWith(SignatureAlgorithm.ES256,getSignkey()).compact();
+                .signWith(SignatureAlgorithm.HS256,getSignkey()).compact();
     }
 
     private Key getSignkey() {
@@ -53,14 +53,17 @@ public class JwtUtil {
     }
 
     public Date extractExpiration(String token){
+
         return extractClaim(token, Claims::getExpiration);
     }
 
     public String extractUsername(String token){
+
         return extractClaim(token, Claims::getSubject);
     }
 
     private Boolean isTokenExpired(String token){
+
         return extractExpiration(token).before(new Date());
     }
 

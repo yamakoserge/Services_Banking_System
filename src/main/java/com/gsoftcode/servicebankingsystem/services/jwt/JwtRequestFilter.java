@@ -1,4 +1,4 @@
-package com.gsoftcode.servicebankingsystem.filter;
+package com.gsoftcode.servicebankingsystem.services.jwt;
 
 import com.gsoftcode.servicebankingsystem.services.jwt.UserDetailsServiceImpl;
 import com.gsoftcode.servicebankingsystem.utils.JwtUtil;

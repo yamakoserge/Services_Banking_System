@@ -1,6 +1,6 @@
 package com.gsoftcode.servicebankingsystem.configs;
 
-import com.gsoftcode.servicebankingsystem.filter.JwtRequestFilter;
+import com.gsoftcode.servicebankingsystem.services.jwt.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
