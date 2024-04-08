@@ -41,10 +41,10 @@ public class AuthenticationController {
 
     public static final String TOKEN_PREFIX = "Bearer ";
 
-    public static String HEADER_STRING = "Authorization";
+    public static final String HEADER_STRING = "Authorization";
 
     @PostMapping("/client/sign-up")
-    public ResponseEntity<?> singupClient(@RequestBody SignupRequestDTO signupRequestDTO){
+    public ResponseEntity<?> signupClient(@RequestBody SignupRequestDTO signupRequestDTO){
        if (authService.presentByEmail(signupRequestDTO.getEmail())){
            return  new ResponseEntity<>("Ce Client existe déjà!", HttpStatus.NOT_ACCEPTABLE);
        }
@@ -78,7 +78,7 @@ public class AuthenticationController {
 
         final UserDetails userDetails= userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
-        final  String jwt = jwtUtil.generateToken(userDetails.getUsername());
+        final String jwt = jwtUtil.generateToken(userDetails.getUsername());
         User user = userRepository.findFirstByEmail(authenticationRequest.getUsername());
 
         response.getWriter().write(new JSONObject()
