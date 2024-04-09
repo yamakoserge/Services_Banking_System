@@ -3,6 +3,7 @@ package com.gsoftcode.servicebankingsystem.controller;
 import com.gsoftcode.servicebankingsystem.dto.AuthenticationRequest;
 import com.gsoftcode.servicebankingsystem.dto.SignupRequestDTO;
 import com.gsoftcode.servicebankingsystem.dto.UserDto;
+
 import com.gsoftcode.servicebankingsystem.entity.User;
 import com.gsoftcode.servicebankingsystem.repository.UserRepository;
 import com.gsoftcode.servicebankingsystem.services.authentication.AuthService;
@@ -18,6 +19,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthenticationController {
 
     @Autowired
@@ -66,7 +69,7 @@ public class AuthenticationController {
 
 
     }
-
+    @CrossOrigin
     @PostMapping({"/authenticate"})
     public void  createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws IOException, JSONException {
         try {
@@ -79,7 +82,7 @@ public class AuthenticationController {
         final UserDetails userDetails= userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
         final String jwt = jwtUtil.generateToken(userDetails.getUsername());
-        User user = userRepository.findFirstByEmail(authenticationRequest.getUsername());
+       User user = userRepository.findFirstByEmail(authenticationRequest.getUsername());
 
         response.getWriter().write(new JSONObject()
                 .put("userId", user.getId())
@@ -88,9 +91,11 @@ public class AuthenticationController {
         );
         response.addHeader("Access-Control-Expose-Headers", "Authorization");
         response.addHeader("Access-Control-Allow-Headers", "Authorization" +
-                "X-PINGOTHER, origin, X-Request-with, Content-Type, X-Custom-header");
+                "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept, X-Custom-header");
 
         response.addHeader(HEADER_STRING, TOKEN_PREFIX+ jwt);
 
     }
+
+
 }

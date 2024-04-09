@@ -24,4 +24,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if(user == null) throw new UsernameNotFoundException("Nom d'utilisateur introuvable", null);
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
     }
+
 }
