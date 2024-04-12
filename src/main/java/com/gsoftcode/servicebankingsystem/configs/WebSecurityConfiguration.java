@@ -48,13 +48,7 @@ public class WebSecurityConfiguration {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
-//    @Override
-//    public  void WebSecurityConfiguration(CorsRegistry registry){
-//        registry
-//                .addMapping("*/**")
-//                .allowedMethods("GET", "POST")
-//                .allowedOrigins("http://localhost:4200");
-//    }
+
 
 
 }

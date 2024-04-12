@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+
 public class AuthenticationController {
 
     @Autowired
@@ -69,9 +69,10 @@ public class AuthenticationController {
 
 
     }
-    @CrossOrigin
+
     @PostMapping({"/authenticate"})
-    public void  createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws IOException, JSONException {
+    public void  createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest,
+                                           HttpServletResponse response) throws IOException, JSONException {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     authenticationRequest.getUsername(),authenticationRequest.getPassword()));
@@ -79,16 +80,18 @@ public class AuthenticationController {
             throw new BadCredentialsException("Incorrect username or password", e);
         }
 
+
         final UserDetails userDetails= userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
         final String jwt = jwtUtil.generateToken(userDetails.getUsername());
        User user = userRepository.findFirstByEmail(authenticationRequest.getUsername());
 
-        response.getWriter().write(new JSONObject()
-                .put("userId", user.getId())
-                .put("role", user.getRole())
-                .toString()
-        );
+       response.getWriter().write(new JSONObject()
+               .put("userId",user.getId())
+               .put("role", user.getRole())
+               .toString()
+       );
+
         response.addHeader("Access-Control-Expose-Headers", "Authorization");
         response.addHeader("Access-Control-Allow-Headers", "Authorization" +
                 "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept, X-Custom-header");
