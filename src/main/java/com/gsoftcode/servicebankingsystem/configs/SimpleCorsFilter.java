@@ -7,16 +7,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
+
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class SimpleCorsFilter implements Filter {
 
+<<<<<<< HEAD
+=======
+    @Value("${app.client.url}")
+    private String clientAppUrl = "";
+>>>>>>> 7302189fad5deb104d4d90e1c63d007f84a64144
 
     public SimpleCorsFilter() {
     }
@@ -40,7 +44,6 @@ public class SimpleCorsFilter implements Filter {
 //            chain.doFilter(req, res);
 //        }
     }
-
     @Override
     public void init(FilterConfig filterConfig) {
     }
@@ -48,5 +51,9 @@ public class SimpleCorsFilter implements Filter {
     @Override
     public void destroy() {
     }
+
+
+
+
 }
 

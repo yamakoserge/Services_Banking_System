@@ -3,6 +3,7 @@ package com.gsoftcode.servicebankingsystem.controller;
 import com.gsoftcode.servicebankingsystem.dto.AuthenticationRequest;
 import com.gsoftcode.servicebankingsystem.dto.SignupRequestDTO;
 import com.gsoftcode.servicebankingsystem.dto.UserDto;
+
 import com.gsoftcode.servicebankingsystem.entity.User;
 import com.gsoftcode.servicebankingsystem.repository.UserRepository;
 import com.gsoftcode.servicebankingsystem.services.authentication.AuthService;
@@ -18,6 +19,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +27,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
+<<<<<<< HEAD
 public class  AuthenticationController {
+=======
+
+public class AuthenticationController {
+>>>>>>> 7302189fad5deb104d4d90e1c63d007f84a64144
 
     @Autowired
     private AuthService authService;
@@ -41,7 +48,7 @@ public class  AuthenticationController {
 
     public static final String TOKEN_PREFIX = "Bearer ";
 
-    public static String HEADER_STRING = "Authorization";
+    public static final String HEADER_STRING = "Authorization";
 
     @PostMapping("/client/sign-up")
     public ResponseEntity<?> signupClient(@RequestBody SignupRequestDTO signupRequestDTO){
@@ -68,7 +75,8 @@ public class  AuthenticationController {
     }
 
     @PostMapping({"/authenticate"})
-    public void  createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws IOException, JSONException {
+    public void  createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest,
+                                           HttpServletResponse response) throws IOException, JSONException {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     authenticationRequest.getUsername(),authenticationRequest.getPassword()));
@@ -76,21 +84,29 @@ public class  AuthenticationController {
             throw new BadCredentialsException("Incorrect username or password", e);
         }
 
+
         final UserDetails userDetails= userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
-        final  String jwt = jwtUtil.generateToken(userDetails.getUsername());
-        User user = userRepository.findFirstByEmail(authenticationRequest.getUsername());
+        final String jwt = jwtUtil.generateToken(userDetails.getUsername());
+       User user = userRepository.findFirstByEmail(authenticationRequest.getUsername());
 
-        response.getWriter().write(new JSONObject()
-                .put("userId", user.getId())
-                .put("role", user.getRole())
-                .toString()
-        );
+       response.getWriter().write(new JSONObject()
+               .put("userId",user.getId())
+               .put("role", user.getRole())
+               .toString()
+       );
+
         response.addHeader("Access-Control-Expose-Headers", "Authorization");
         response.addHeader("Access-Control-Allow-Headers", "Authorization" +
+<<<<<<< HEAD
                 "X-PINGOTHER, Origin, X-Request-with, Content-Type, Accept, X-Custom-header");
+=======
+                "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept, X-Custom-header");
+>>>>>>> 7302189fad5deb104d4d90e1c63d007f84a64144
 
         response.addHeader(HEADER_STRING, TOKEN_PREFIX+ jwt);
 
     }
+
+
 }

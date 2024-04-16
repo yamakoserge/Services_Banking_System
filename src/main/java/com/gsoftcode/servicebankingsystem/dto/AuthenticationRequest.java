@@ -1,5 +1,6 @@
 package com.gsoftcode.servicebankingsystem.dto;
 
+
 import lombok.Data;
 
 @Data
