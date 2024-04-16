@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-public class AuthenticationController {
+public class  AuthenticationController {
 
     @Autowired
     private AuthService authService;
@@ -44,7 +44,7 @@ public class AuthenticationController {
     public static String HEADER_STRING = "Authorization";
 
     @PostMapping("/client/sign-up")
-    public ResponseEntity<?> singupClient(@RequestBody SignupRequestDTO signupRequestDTO){
+    public ResponseEntity<?> signupClient(@RequestBody SignupRequestDTO signupRequestDTO){
        if (authService.presentByEmail(signupRequestDTO.getEmail())){
            return  new ResponseEntity<>("Ce Client existe déjà!", HttpStatus.NOT_ACCEPTABLE);
        }
@@ -88,7 +88,7 @@ public class AuthenticationController {
         );
         response.addHeader("Access-Control-Expose-Headers", "Authorization");
         response.addHeader("Access-Control-Allow-Headers", "Authorization" +
-                "X-PINGOTHER, origin, X-Request-with, Content-Type, X-Custom-header");
+                "X-PINGOTHER, Origin, X-Request-with, Content-Type, Accept, X-Custom-header");
 
         response.addHeader(HEADER_STRING, TOKEN_PREFIX+ jwt);
 
