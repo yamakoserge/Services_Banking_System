@@ -27,17 +27,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-<<<<<<< HEAD
+@CrossOrigin("*")
 public class  AuthenticationController {
-=======
-
-public class AuthenticationController {
->>>>>>> 7302189fad5deb104d4d90e1c63d007f84a64144
 
     @Autowired
     private AuthService authService;
+
     @Autowired
     private AuthenticationManager authenticationManager;
+
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
     @Autowired
@@ -98,11 +96,11 @@ public class AuthenticationController {
 
         response.addHeader("Access-Control-Expose-Headers", "Authorization");
         response.addHeader("Access-Control-Allow-Headers", "Authorization" +
-<<<<<<< HEAD
+
                 "X-PINGOTHER, Origin, X-Request-with, Content-Type, Accept, X-Custom-header");
-=======
-                "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept, X-Custom-header");
->>>>>>> 7302189fad5deb104d4d90e1c63d007f84a64144
+
+
+
 
         response.addHeader(HEADER_STRING, TOKEN_PREFIX+ jwt);
 
