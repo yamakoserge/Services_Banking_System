@@ -16,8 +16,6 @@ import java.io.IOException;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class SimpleCorsFilter implements Filter {
 
-    @Value("${app.client.url}")
-    private String clientAppUrl = "";
 
     public SimpleCorsFilter() {
     }
@@ -34,7 +32,7 @@ public class SimpleCorsFilter implements Filter {
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
         } else {
-            chain.doFilter(req, res);
+//            chain.doFilter(req, res);
         }
     }
     @Override
