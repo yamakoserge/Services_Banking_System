@@ -19,7 +19,7 @@ import java.util.Map;
 public class SimpleCorsFilter implements Filter {
 
 
-    @Value("${http://localhost:4200/}")
+    @Value("${app.client.url}")
     private String clientAppUrl = "";
 
 
@@ -37,12 +37,12 @@ public class SimpleCorsFilter implements Filter {
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "*");
 
-        //ils bloquent tous les requettes entrants
+
 
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
         } else {
-           //chain.doFilter(req, res);
+           chain.doFilter(req, res);
         }
     }
     @Override
