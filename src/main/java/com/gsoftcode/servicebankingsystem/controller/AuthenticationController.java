@@ -7,7 +7,7 @@ import com.gsoftcode.servicebankingsystem.entity.User;
 import com.gsoftcode.servicebankingsystem.repository.UserRepository;
 import com.gsoftcode.servicebankingsystem.services.authentication.AuthService;
 import com.gsoftcode.servicebankingsystem.services.jwt.UserDetailsServiceImpl;
-import com.gsoftcode.servicebankingsystem.utils.JwtUtil;
+import com.gsoftcode.servicebankingsystem.utils.JWTUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +34,7 @@ public class AuthenticationController {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
     @Autowired
-    private JwtUtil jwtUtil;
+    private JWTUtil jwtUtil;
 
     @Autowired
     private UserRepository userRepository;
