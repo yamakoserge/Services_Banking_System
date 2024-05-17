@@ -39,7 +39,7 @@ public class Ad {
         adDTO.setDescription(description);
         adDTO.setPrice(price);
         adDTO.setCompanyName(user.getName());
-        adDTO.setReturedImg(img);;
+        adDTO.setReturnedImg(img);;
 
         return adDTO;
     }
