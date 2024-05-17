@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
-public class JwtUtil {
+public class JWTUtil {
 
     public static final String SECRET = "TWFuIGlzIGRKc3Rpbmd1aXNoZGQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCAuLi4";
 
