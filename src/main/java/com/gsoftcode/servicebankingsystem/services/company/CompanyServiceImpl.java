@@ -43,4 +43,31 @@ public class CompanyServiceImpl implements CompanyService{
 
     }
 
+    public AdDTO getAdById(Long adDTO){
+        Optional<Ad> optionalAd = adRepository.findById(adDTO);
+        if(optionalAd.isPresent()){
+            return optionalAd.get().getAdDto();
+        }
+        return null;
+    }
+
+    public boolean updateAd(Long adId, AdDTO adDTO) throws IOException {
+        Optional<Ad> optionalAd = adRepository.findById(adId);
+        if (optionalAd.isPresent()){
+            Ad ad = optionalAd.get();
+
+            ad.setServiceName(adDTO.getServiceName());
+            ad.setDescription(ad.getDescription());
+            ad.setPrice(ad.getPrice());
+
+            if (adDTO.getImg() != null){
+                ad.setImg(adDTO.getImg().getBytes());
+            }
+            adRepository.save(ad);
+            return true;
+        }else {
+            return false;
+        }
+    }
+
 }

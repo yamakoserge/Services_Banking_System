@@ -9,4 +9,8 @@ public interface CompanyService {
     boolean postAd(Long userId, AdDTO adDTO) throws IOException;
 
     public List<AdDTO> getAllAds(Long userId);
+
+    public AdDTO getAdById(Long adDTO);
+
+    boolean updateAd(Long adId, AdDTO adDTO) throws IOException;
 }

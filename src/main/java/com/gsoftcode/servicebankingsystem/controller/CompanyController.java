@@ -15,6 +15,7 @@ public class CompanyController {
 
     @Autowired
     private CompanyService companyService;
+
     @PostMapping("/ad/{userId}")
     public ResponseEntity<?> postAd(@PathVariable Long userId, @ModelAttribute AdDTO adDTO) throws IOException {
         boolean success = companyService.postAd(userId, adDTO);
@@ -28,5 +29,26 @@ public class CompanyController {
     @GetMapping("/ads/{userId}")
     public ResponseEntity<?> getAllAdsByUserId(@PathVariable Long userId){
         return ResponseEntity.ok(companyService.getAllAds(userId));
+    }
+
+    @GetMapping("/ad/{adId}")
+    public ResponseEntity<?> getAdById(@PathVariable Long adId){
+        AdDTO adDTO = companyService.getAdById(adId);
+        if (adDTO != null){
+            return  ResponseEntity.ok(adDTO);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @PutMapping("/ad/{adId}")
+    public ResponseEntity<?> updateAd(@PathVariable Long adId, @ModelAttribute AdDTO adDTO) throws IOException {
+        boolean success = companyService.updateAd(adId, adDTO);
+        if (success){
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }
