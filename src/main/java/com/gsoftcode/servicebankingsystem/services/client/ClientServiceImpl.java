@@ -3,17 +3,21 @@ package com.gsoftcode.servicebankingsystem.services.client;
 import com.gsoftcode.servicebankingsystem.dto.AdDTO;
 import com.gsoftcode.servicebankingsystem.dto.AdDetailsForClientDTO;
 import com.gsoftcode.servicebankingsystem.dto.ReservationDTO;
+import com.gsoftcode.servicebankingsystem.dto.ReviewDTO;
 import com.gsoftcode.servicebankingsystem.entity.Ad;
 import com.gsoftcode.servicebankingsystem.entity.Reservation;
+import com.gsoftcode.servicebankingsystem.entity.Review;
 import com.gsoftcode.servicebankingsystem.entity.User;
 import com.gsoftcode.servicebankingsystem.enums.ReservationStatus;
 import com.gsoftcode.servicebankingsystem.enums.ReviewStatus;
 import com.gsoftcode.servicebankingsystem.repository.AdRepository;
 import com.gsoftcode.servicebankingsystem.repository.ReservationRepository;
+import com.gsoftcode.servicebankingsystem.repository.ReviewRepository;
 import com.gsoftcode.servicebankingsystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +33,9 @@ public class ClientServiceImpl implements ClientService{
 
     @Autowired
     private ReservationRepository reservationRepository;
+
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     public List<AdDTO> getAllAds(){
         return adRepository.findAll().stream().map(Ad::getAdDto).collect(Collectors.toList());
@@ -76,5 +83,31 @@ public class ClientServiceImpl implements ClientService{
         return reservationRepository.findAllByUserId(userId).stream()
                 .map(Reservation::getReservationDto)
                 .collect(Collectors.toList());
+    }
+
+    public Boolean giveReview(ReviewDTO reviewDTO){
+        Optional<User> optionalUser = userRepository.findById(reviewDTO.getUserId());
+        Optional<Reservation> optionalBooking = reservationRepository.findById(reviewDTO.getBookId());
+
+        if (optionalUser.isPresent() && optionalBooking.isPresent()){
+            Review review = new Review();
+
+            review.setReviewDate(new Date());
+            review.setReview(review.getReview());
+            review.setRating(reviewDTO.getRating());
+
+            review.setUser(optionalUser.get());
+            review.setAd(optionalBooking.get().getAd());
+
+            reviewRepository.save(review);
+
+            Reservation booking = optionalBooking.get();
+            booking.setReviewStatus(ReviewStatus.TRUE);
+
+            reservationRepository.save(booking);
+
+            return true;
+        }
+        return false;
     }
 }
