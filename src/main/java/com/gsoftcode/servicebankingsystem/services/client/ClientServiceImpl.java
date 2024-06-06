@@ -75,6 +75,9 @@ public class ClientServiceImpl implements ClientService{
         if (optionalAd.isPresent()){
             adDetailsForClientDTO.setAdDTO(optionalAd.get().getAdDto());
 
+            List<Review> reviewList = reviewRepository.findAllByAdId(adId);
+            adDetailsForClientDTO.setReviewDTOList(reviewList.stream().map(Review::getDto).collect(Collectors.toList()));
+
         }
         return adDetailsForClientDTO;
     }
@@ -93,7 +96,7 @@ public class ClientServiceImpl implements ClientService{
             Review review = new Review();
 
             review.setReviewDate(new Date());
-            review.setReview(review.getReview());
+            review.setReview(reviewDTO.getReview());
             review.setRating(reviewDTO.getRating());
 
             review.setUser(optionalUser.get());

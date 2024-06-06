@@ -48,9 +48,9 @@ public class ClientController {
        return ResponseEntity.ok(clientService.getAllBookingsByUserId(userId));
     }
 
-    @PostMapping("/review")
-    public ResponseEntity<?>giveReview(@RequestBody ReviewDTO reviewDTO){
-        Boolean success = clientService.giveReview(reviewDTO );
+   @PostMapping("/review")
+    public ResponseEntity<?> giveReview(@RequestBody ReviewDTO reviewDTO){
+        Boolean success = clientService.giveReview(reviewDTO);
         if (success){
             return ResponseEntity.status(HttpStatus.OK).build();
         }else {

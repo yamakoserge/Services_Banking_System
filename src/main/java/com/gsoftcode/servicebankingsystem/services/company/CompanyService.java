@@ -20,4 +20,6 @@ public interface CompanyService {
     List<ReservationDTO> getAllAdBookings(Long companyId);
 
     boolean changeBookingStatus(Long bookingId, String status);
+
+
 }

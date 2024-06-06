@@ -17,6 +17,7 @@ import java.util.Map;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
+
 public class SimpleCorsFilter implements Filter {
 
 

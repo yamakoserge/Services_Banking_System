@@ -1,5 +1,6 @@
 package com.gsoftcode.servicebankingsystem.entity;
 
+import com.gsoftcode.servicebankingsystem.dto.ReviewDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
@@ -31,4 +32,18 @@ public class Review {
     @JoinColumn(name = "ad_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private  Ad ad;
+
+    public ReviewDTO getDto(){
+        ReviewDTO reviewDTO= new ReviewDTO();
+
+        reviewDTO.setId(id);
+        reviewDTO.setReview(review);
+        reviewDTO.setRating(rating);
+        reviewDTO.setReviewDate(reviewDate);
+        reviewDTO.setUserId(user.getId());
+        reviewDTO.setClientName(user.getName());
+        reviewDTO.setServiceName(ad.getServiceName());
+
+        return reviewDTO;
+    }
 }
